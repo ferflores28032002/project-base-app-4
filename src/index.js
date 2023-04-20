@@ -18,6 +18,7 @@ async function main() {
     try {
         await sequelize.authenticate()
         await sequelize.sync()
+        userModel.sync()
     } catch (error) {
         console.log(error.message)
     }
