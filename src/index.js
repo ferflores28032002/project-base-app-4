@@ -3,7 +3,6 @@ import cors from 'cors'
 import routeUser from './routes/user.route.js'
 import sequelize from "./database/db.js";
 import { PORT } from "./config/envConfig.js";
-import { userModel } from "./models/user.model.js";
 
 const app = express()
 // Routes 
@@ -18,7 +17,6 @@ async function main() {
     try {
         await sequelize.authenticate()
         await sequelize.sync()
-        userModel.sync()
     } catch (error) {
         console.log(error.message)
     }
