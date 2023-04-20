@@ -17,7 +17,7 @@ app.use('/api/', routeUser)
 async function main() {
     try {
         await sequelize.authenticate()
-        await sequelize.sync()
+        await sequelize.sync({force: true})
         console.log('Connect succefully a mysql')
     } catch (error) {
         console.log(error.message)
