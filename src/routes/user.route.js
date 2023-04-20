@@ -5,6 +5,7 @@ const route = Router()
 
 // Routes
 route.get('/users', findAllUser)
+route.get('/jose', (req, res) => res.send('jose'))
 
 
 export default route
