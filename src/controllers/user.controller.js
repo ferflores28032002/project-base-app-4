@@ -30,10 +30,7 @@ export const create = async (req, res) => {
         })
 
     } catch (error) {
-        res.status(500).json({
-            msg: 'Error en el controlador create user',
-            error
-        })
+        console.log(error)
     }
 
 }
@@ -59,10 +56,8 @@ export const findOneUser = async (req, res) => {
         }
 
     } catch (error) {
-        res.status(500).json({
-            msg: 'Error en el controlador findOneUser user',
-            error
-        })
+
+        console.log(error)
     }
 
 }
