@@ -6,16 +6,16 @@ import { PORT } from "./config/envConfig.js";
 
 const app = express()
 // Routes 
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
 app.use(cors({
     origin: '*',
     methods: 'GET, POST, PUT, DELETE',
     allowedHeaders: 'Content-Type'
 }));
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 
-app.use('/api/', routeUser)
+app.use(routeUser)
 
 
 async function main() {

@@ -5,8 +5,8 @@ const route = Router()
 
 // Routes
 route.get('/users', findAllUser)
-route.post('/user/create', create)
 route.get('/user/:id', findOneUser)
+route.post('/user/create', create)
 
 
 export default route
