@@ -46,16 +46,16 @@ export const findOneUser = async (req, res) => {
     const { id } = req.params
 
     try {
-        const user = await userModel.findOne({ where: id })
+        const user = await userModel.findOne({ where: { id } })
 
         if (user) {
             return res.status(200).json({
                 user
             })
-        }else {
+        } else {
             return res.status(404).json({
                 msg: 'usuario con el id: ' + id + ' no encontrado!'
-            })  
+            })
         }
 
     } catch (error) {

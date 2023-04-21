@@ -5,7 +5,7 @@ const route = Router()
 
 // Routes
 route.get('/users', findAllUser)
-route.get('/user/:id', findOneUser)
+route.get('/users/:id', findOneUser)
 route.post('/user/create', create)
 
 
