@@ -85,3 +85,32 @@ export const deleteForId = async (req, res) => {
     }
 
 }
+
+// actualizar un usuario por id
+
+
+export const updateForId = async (req, res) => {
+
+    const { id } = req.params
+    const { name } = req.body
+
+    try {
+        const user = await userModel.findOne({ where: { id } })
+
+        user.set({ name })
+        await user.save()
+
+        if (user) {
+            return res.status(200).json('Update!')
+        } else {
+            return res.status(404).json({
+                msg: 'usuario con el id: ' + id + ' no encontrado!'
+            })
+        }
+
+    } catch (error) {
+
+        console.log(error)
+    }
+
+}
