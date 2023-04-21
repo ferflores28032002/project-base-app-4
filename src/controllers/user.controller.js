@@ -47,8 +47,32 @@ export const findOneUser = async (req, res) => {
 
         if (user) {
             return res.status(200).json({
+
                 user
             })
+        } else {
+            return res.status(404).json({
+                msg: 'usuario con el id: ' + id + ' no encontrado!'
+            })
+        }
+
+    } catch (error) {
+
+        console.log(error)
+    }
+
+}
+
+// Eliminar usuarios por id
+export const deleteForId = async (req, res) => {
+
+    const { id } = req.params
+
+    try {
+        const user = await userModel.destroy({ where: { id } })
+
+        if (user) {
+            return res.status(200).json('Deleted!')
         } else {
             return res.status(404).json({
                 msg: 'usuario con el id: ' + id + ' no encontrado!'
