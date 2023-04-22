@@ -5,27 +5,28 @@ export const findAllUser = async (req, res) => {
     try {
         const { count, rows } = await userModel.findAndCountAll()
         res.json({
-            msg: 'Desde el controllers findAllUser',
             count,
             rows
         })
     } catch (error) {
-
+        console.log(error)
     }
 }
 
-// Añadir un nuevo usuario
 
 export const create = async (req, res) => {
 
     const { name, password } = req.body
 
     try {
+
+        // TODO: Verificar si existe ya el usuario
+
         const newPassword = hasPassword(password)
         const user = await userModel.create({ name, password: newPassword })
 
         res.status(200).json({
-            msg: 'Usuario creado exitosamente',
+            msg: 'User created successfully!',
             user
         })
 
@@ -36,58 +37,34 @@ export const create = async (req, res) => {
 }
 
 
-// Buscar un usuario por id
-
 export const findOneUser = async (req, res) => {
-
     const { id } = req.params
 
     try {
         const user = await userModel.findOne({ where: { id } })
 
-        if (user) {
-            return res.status(200).json({
-
-                user
-            })
-        } else {
-            return res.status(404).json({
-                msg: 'usuario con el id: ' + id + ' no encontrado!'
-            })
-        }
-
+        if (user) res.status(200).json({ user })
+        else
+            res.status(404).json({ msg: `User with id "${id} not found!"` })
     } catch (error) {
-
         console.log(error)
     }
 
 }
 
-// Eliminar usuarios por id
 export const deleteForId = async (req, res) => {
-
     const { id } = req.params
 
     try {
         const user = await userModel.destroy({ where: { id } })
 
-        if (user) {
-            return res.status(200).json('Deleted!')
-        } else {
-            return res.status(404).json({
-                msg: 'usuario con el id: ' + id + ' no encontrado!'
-            })
-        }
+        if (user) res.status(200).json('Deleted!')
+        else res.status(404).json({ msg: `User with id "${id} not found!"` })
 
     } catch (error) {
-
         console.log(error)
     }
-
 }
-
-// actualizar un usuario por id
-
 
 export const updateForId = async (req, res) => {
 
@@ -100,14 +77,11 @@ export const updateForId = async (req, res) => {
         user.set({ name })
         await user.save()
 
-        if (user) {
-            return res.status(200).json('Update!')
-        } else {
-            return res.status(404).json({
-                msg: 'usuario con el id: ' + id + ' no encontrado!'
+        if (user) return res.status(200).json('Update!')
+        else
+            res.status(404).json({
+                msg: `User with id "${id} not found!"`
             })
-        }
-
     } catch (error) {
 
         console.log(error)

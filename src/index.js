@@ -5,30 +5,28 @@ import sequelize from "./database/db.js";
 import { PORT } from "./config/envConfig.js";
 
 const app = express()
-// Routes 
+
 app.use(cors({
     origin: '*',
-    methods: 'GET, POST, PUT, DELETE',
+    methods: 'GET, POST, PUT, DELETE, PATCH',
     allowedHeaders: 'Content-Type'
 }));
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-
+// Routes
 app.use(routeUser)
 
-
-async function main() {
+const main = async () => {
     try {
         await sequelize.authenticate()
         await sequelize.sync()
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
 
 main()
-
 
 app.listen(PORT, () => console.log(`Server on port ---> ${PORT}`))
